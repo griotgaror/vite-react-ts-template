@@ -1,33 +1,24 @@
-const cors = require('cors');
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
 const serverConfig = require('./serverConfig');
-const addRoutesToServer = require('./routes/routes');
+const { addRoutesToServer, routes } = require('./routes/routes');
 const { addSwaggerDocs } = require('./docs/swagger');
 
 const app = express();
-app.set('base', serverConfig.baseUrl);
 app.use(express.json());
 
-const clientBuildDirPath = path.join(__dirname, '../../build');
-const indexHtml = path.join(clientBuildDirPath, 'index.html');
-
-app.use(
-    cors({
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-    }),
-);
+const clientBuildPath = path.join(__dirname, '../../build');
+const indexHtml = path.join(clientBuildPath, 'index.html');
 
 addRoutesToServer(app);
-addSwaggerDocs(app);
+addSwaggerDocs(app, routes);
 
 // Serve static files
 app.use(
     serverConfig.baseUrl,
-    express.static(clientBuildDirPath, {
+    express.static(clientBuildPath, {
         setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache, must-revalidate'),
     }),
 );
