@@ -1,7 +1,7 @@
 import { UserConfig } from 'vite';
 
 export default function devConfig(): UserConfig {
-    const testServerUrl = 'http://0.0.0.0:3232';
+    const testApiUrl = 'http://0.0.0.0:3232';
     const hostUrl = '0.0.0.0';
 
     return {
@@ -13,17 +13,9 @@ export default function devConfig(): UserConfig {
                 overlay: false,
             },
             proxy: {
-                '/test-api': {
-                    target: testServerUrl,
+                '/api': {
+                    target: testApiUrl,
                     ws: true,
-                    changeOrigin: true,
-                },
-                '/assets': {
-                    target: testServerUrl,
-                    changeOrigin: true,
-                },
-                '/static-data': {
-                    target: testServerUrl,
                     changeOrigin: true,
                 },
             },
