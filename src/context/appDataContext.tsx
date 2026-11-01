@@ -8,15 +8,16 @@ import useUpdateStates from '@/hooks/useUpdateStates';
 import { GlobalStyle } from '@/styles/globalStyle';
 import { generateStyleConfig } from '@/styles/styleConfig';
 import { ThemesVariants } from '@/styles/themes';
+import { User } from '@/types/user.types';
 
 export interface AppDataStates {
-    isGlobalLoading: boolean;
-    activeColorMode: ThemesVariants | null;
+    userData: User | null;
+    theme: ThemesVariants | null;
 }
 
 export const initalValues: AppDataStates = {
-    isGlobalLoading: false,
-    activeColorMode: null,
+    userData: null,
+    theme: null,
 };
 
 interface AppDataCntxProps extends AppDataStates {
@@ -36,8 +37,8 @@ export const AppDataProvider = function ({ children }: AppDataProviderProps) {
         updateAppDataStates: updateStates,
     };
 
-    const { activeColorMode } = appDataStates;
-    const styleConfig = generateStyleConfig(activeColorMode);
+    const { theme } = appDataStates;
+    const styleConfig = generateStyleConfig(theme);
 
     return (
         <AppDataCntx.Provider value={contextValues}>

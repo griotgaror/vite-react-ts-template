@@ -1,18 +1,18 @@
-import { useApiDataContext } from '@/context/apiDataContext';
+import { useAppDataContext } from '@/context/appDataContext';
 
 export default function useStatusCodeHandling() {
-    const { updateApiDataStates } = useApiDataContext();
+    const { updateAppDataStates } = useAppDataContext();
 
-    const handleStatusCode = function (statusCode: number) {
+    const handleStatusCode = function (statusCode: number | null) {
         switch (statusCode) {
             case 401:
-                // Account has no active Session, reset User data
-                updateApiDataStates({
+                // Invalid Session => logout
+                updateAppDataStates({
                     userData: undefined,
                 });
                 break;
             case 403:
-                // Account Role permission changed
+                // Account Permission changed
                 break;
             case 500:
                 // Internal server error

@@ -5,7 +5,6 @@ import useResponseErrorHandling from './useResponseErrorHandling';
 
 interface UseApiRequestProps<R, P> {
     url: string;
-    baseUrl?: string;
     onSuccess: (data: R) => void;
     onError?: () => void;
     onInit?: boolean;
@@ -20,8 +19,8 @@ export default function useApiGetRequest<R = unknown, P = any>({
     onInit = true,
     params,
 }: UseApiRequestProps<R, P>) {
-    const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const { handleResponseError, errorDetails, clearError } = useResponseErrorHandling();
+    const [isLoading, setIsLoading] = React.useState<boolean>(onInit);
+    const { handleResponseError, ...errorProps } = useResponseErrorHandling();
 
     const fetchRequest = React.useCallback(async () => {
         try {
@@ -45,8 +44,7 @@ export default function useApiGetRequest<R = unknown, P = any>({
 
     return {
         isLoading,
-        errorDetails,
         fetchRequest,
-        clearError,
+        errorProps,
     };
 }

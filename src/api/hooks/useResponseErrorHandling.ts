@@ -18,35 +18,44 @@ export default function useResponseErrorHandling() {
     const [errorDetails, setErrorDetails] = React.useState<ResError>(undefined);
     const { handleStatusCode } = useStatusCodeHandling();
 
-    let message = 'Unexpected Error';
-    let statusCode = 500;
+    const extractErrorDetails = React.useCallback(
+        (error: AxiosError): ResErrorDetails => {
+            if (error.response) {
+                const data = error.response.data as ApiResponseErrorMsg | undefined;
 
-    const handleResponseError = function (error: AxiosError) {
-        const { response, request } = error;
+                return {
+                    name: 'ApiError',
+                    message: data?.detail || 'The service is currently not available',
+                    statusCode: error.response.status,
+                };
+            }
 
-        if (response) {
-            // API response with an error status
-            const data = response.data as ApiResponseErrorMsg;
-            message = data.detail || 'The service is currently not available';
-            statusCode = response.status;
-        } else if (request) {
-            // Request was made but no response was received
-            message = request.message || 'No Error Message';
-            statusCode = request.status;
-        } else {
-            // Something happened in setting up the request
-            message = 'Error while setting up the request';
-            statusCode = 400;
-        }
+            if (error.request) {
+                return {
+                    name: 'NetworkError',
+                    message: 'No Response Received from Server',
+                    statusCode: null,
+                };
+            }
 
-        handleStatusCode(statusCode);
+            return {
+                name: 'ClientError',
+                message: 'Error while setting up request',
+                statusCode: 400,
+            };
+        },
+        [],
+    );
 
-        setErrorDetails(() => ({
-            name: 'CustomError',
-            message: message,
-            statusCode: statusCode,
-        }));
-    };
+    const handleResponseError = React.useCallback(
+        (error: AxiosError) => {
+            const details = extractErrorDetails(error);
+
+            handleStatusCode(details.statusCode);
+            setErrorDetails(details);
+        },
+        [handleStatusCode, extractErrorDetails],
+    );
 
     const clearError = React.useCallback(() => setErrorDetails(undefined), []);
 
