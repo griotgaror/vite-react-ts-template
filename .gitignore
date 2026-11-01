@@ -1,9 +1,4 @@
-# Dependency directories
-
 node_modules/
-
-
-# build generated output
-
+bun.lockb
 build/
 dist/
