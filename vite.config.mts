@@ -35,7 +35,7 @@ export default defineConfig(({ command }) => {
                             injectStyle: `
                             <style>
                                 html {
-                                    background-color: ${colorModes[defaultColorMode].primary} !important;
+                                    background-color: ${colorModes[defaultColorMode].primaryColor} !important;
                                 }
                             </style>`,
                         },
