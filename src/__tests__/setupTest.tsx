@@ -13,9 +13,9 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock);
 
 beforeAll(() => {
     // Mock root container to dom tree
-    const rootElementMock = document.createElement('div');
-    rootElementMock.setAttribute('id', 'app');
-    document.body.append(rootElementMock);
+    // const rootElementMock = document.createElement('div');
+    // rootElementMock.setAttribute('id', 'app');
+    // document.body.append(rootElementMock);
 });
 
 afterEach(() => {
