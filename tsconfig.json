@@ -25,7 +25,7 @@
         "module": "ESNext",
 
         // Resolve modules similar to Node.js (important for Node module resolution)
-        "moduleResolution": "Node",
+        "moduleResolution": "bundler",
 
         // Allows default imports from modules with no default export
         "allowSyntheticDefaultImports": true,
