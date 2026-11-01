@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { RouteObject, RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { AppDataProvider } from '@/context/appDataContext';
+import ContextProviders from '@/contextProviders';
 
 interface CustomRendererProps {
     element?: React.ReactNode;
@@ -25,8 +25,8 @@ export const customRenderer = function ({
     });
 
     return render(
-        <AppDataProvider>
+        <ContextProviders>
             <RouterProvider router={router} />
-        </AppDataProvider>,
+        </ContextProviders>,
     );
 };

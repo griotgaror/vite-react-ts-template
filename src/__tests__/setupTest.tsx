@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { afterEach, beforeAll, vi } from 'vitest';
@@ -23,9 +20,7 @@ beforeAll(() => {
 
 afterEach(() => {
     // if vitest --ui then show the rendert DOM tree
-    if (process.env.IS_VITEST_UI === 'true') {
-        screen.debug();
-    }
+    process.env.IS_VITEST_UI === 'true' && screen.debug();
 
     // Clean all mocks after each test
     vi.restoreAllMocks();
