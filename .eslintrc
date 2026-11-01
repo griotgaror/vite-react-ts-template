@@ -6,18 +6,18 @@
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
     ],
     "env": {
         "node": true,
         "browser": true,
         "es2021": true,
-        "jest": true
+        "jest": true,
     },
     "settings": {
         "react": {
-            "version": "detect"
-        }
+            "version": "detect",
+        },
     },
     "rules": {
         "prettier/prettier": "error",
@@ -29,8 +29,8 @@
             "error",
             "single",
             {
-                "allowTemplateLiterals": true
-            }
+                "allowTemplateLiterals": true,
+            },
         ],
         "react/no-unescaped-entities": [
             "error",
@@ -38,24 +38,24 @@
                 "forbid": [
                     {
                         "char": ">",
-                        "alternatives": ["&gt;"]
+                        "alternatives": ["&gt;"],
                     },
                     {
                         "char": "}",
-                        "alternatives": ["&#125;"]
-                    }
-                ]
-            }
+                        "alternatives": ["&#125;"],
+                    },
+                ],
+            },
         ],
         "semi": ["error", "always"],
         "object-property-newline": "error",
         "object-curly-newline": [
             "error",
             {
-                "ObjectExpression": { "multiline": true, "minProperties": 1 }
-            }
+                "ObjectExpression": { "multiline": true, "minProperties": 1 },
+            },
         ],
         "object-curly-spacing": ["error", "always"],
-        "no-console": [0, { "allow": ["warn", "error"] }]
-    }
+        "no-console": [0, { "allow": ["warn", "error"] }],
+    },
 }
